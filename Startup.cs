@@ -22,9 +22,9 @@ namespace CartMVCApp
 
         public void ConfigureServices(IServiceCollection services)
         {
-            // Veritabanı bağlantısı (LocalDB)
+            // Veritabanı bağlantısı (SQLite - yerel geliştirme ve hosting için taşınabilir)
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             // Kullanıcı girişi / kayıt sistemi (Identity)
             services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -62,15 +62,18 @@ namespace CartMVCApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-           
+                app.UseMigrationsEndPoint();
+                app.UseHttpsRedirection();
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
+                // Not: Render.com gibi platformlar SSL sonlandırmayı kendi
+                // proxy katmanında yapar; bu yüzden burada tekrar HTTPS
+                // yönlendirmesi zorlamıyoruz (yönlendirme döngüsünü önler).
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
