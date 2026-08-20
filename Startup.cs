@@ -62,7 +62,7 @@ namespace CartMVCApp
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseMigrationsEndPoint();
+              
                 app.UseHttpsRedirection();
             }
             else
