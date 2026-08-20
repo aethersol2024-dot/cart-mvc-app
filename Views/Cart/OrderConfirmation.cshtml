@@ -1,0 +1,37 @@
+@model Order
+@{
+    ViewData["Title"] = "Sipariş Onaylandı";
+}
+
+<div class="card onay-kart">
+    <h1>✅ Siparişiniz Alındı!</h1>
+    <p>Sipariş Numaranız: <strong>#@Model.Id</strong></p>
+    <p>Sipariş Tarihi: @Model.OrderDate.ToString("dd.MM.yyyy HH:mm")</p>
+    <p>Teslimat Adresi: @Model.TeslimatAdresi</p>
+
+    <table class="sepet-tablo">
+        <thead>
+            <tr>
+                <th>Ürün</th>
+                <th>Adet</th>
+                <th>Fiyat</th>
+                <th>Tutar</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Items)
+            {
+                <tr>
+                    <td>@item.ProductName</td>
+                    <td>@item.Quantity</td>
+                    <td>@item.Price.ToString("C2")</td>
+                    <td>@((item.Price * item.Quantity).ToString("C2"))</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <h2>Toplam: @Model.TotalPrice.ToString("C2")</h2>
+
+    <a class="btn" asp-controller="Products" asp-action="Index">Alışverişe Devam Et</a>
+</div>

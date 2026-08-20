@@ -1,0 +1,20 @@
+@model Product
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="urun-detay">
+    <img src="@Model.ImageUrl" alt="@Model.Name" />
+    <div class="detay-bilgi">
+        <h1>@Model.Name</h1>
+        <p>@Model.Description</p>
+        <p class="fiyat">@Model.Price.ToString("C2")</p>
+        <p>Stok: @Model.Stock adet</p>
+
+        <form asp-controller="Cart" asp-action="AddToCart" method="post" class="sepet-form">
+            <input type="hidden" name="productId" value="@Model.Id" />
+            <input type="number" name="quantity" value="1" min="1" class="miktar-input" />
+            <button type="submit" class="btn">Sepete Ekle</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+@model List<CartItem>
+@{
+    ViewData["Title"] = "Siparişi Onayla";
+}
+
+<h1>Siparişi Onayla</h1>
+
+<div class="checkout-grid">
+    <div class="siparis-ozet card">
+        <h2>Sipariş Özeti</h2>
+        <table class="sepet-tablo">
+            <thead>
+                <tr>
+                    <th>Ürün</th>
+                    <th>Adet</th>
+                    <th>Tutar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.ProductName</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Toplam.ToString("C2")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <h3>Genel Toplam: @Model.Sum(x => x.Toplam).ToString("C2")</h3>
+    </div>
+
+    <div class="teslimat-form card">
+        <h2>Teslimat Bilgileri</h2>
+        <form asp-controller="Cart" asp-action="ConfirmOrder" method="post">
+            <div class="form-group">
+                <label for="teslimatAdresi">Teslimat Adresi</label>
+                <textarea id="teslimatAdresi" name="teslimatAdresi" class="form-control" rows="4" required placeholder="Adres bilgilerinizi giriniz..."></textarea>
+            </div>
+            <button type="submit" class="btn">Siparişi Onayla</button>
+            <a class="btn-outline" asp-controller="Cart" asp-action="Index">Sepete Dön</a>
+        </form>
+    </div>
+</div>

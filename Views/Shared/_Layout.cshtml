@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Online Mağaza</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <a class="brand" asp-controller="Home" asp-action="Index">🛍️ Online Mağaza</a>
+            <ul class="nav-links">
+                <li><a asp-controller="Home" asp-action="Index">Ana Sayfa</a></li>
+                <li><a asp-controller="Products" asp-action="Index">Ürünler</a></li>
+                <li><a asp-controller="Cart" asp-action="Index">Sepetim</a></li>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <li><span class="kullanici">Merhaba, @User.Identity.Name</span></li>
+                    <li>
+                        <form asp-controller="Account" asp-action="Logout" method="post" style="display:inline;">
+                            <button type="submit" class="linkbtn">Çıkış Yap</button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li><a asp-controller="Account" asp-action="Login">Giriş Yap</a></li>
+                    <li><a asp-controller="Account" asp-action="Register">Kayıt Ol</a></li>
+                }
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        @if (TempData["Mesaj"] != null)
+        {
+            <div class="alert alert-success">@TempData["Mesaj"]</div>
+        }
+        @RenderBody()
+    </main>
+
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Online Mağaza | ASP.NET Core MVC 5.0</p>
+    </footer>
+</body>
+</html>

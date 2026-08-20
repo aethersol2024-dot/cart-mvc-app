@@ -1,0 +1,9 @@
+@model ErrorViewModel
+<div class="card">
+    <h1>Hata Oluştu</h1>
+    <p>İsteğinizi işlerken bir sorun oluştu.</p>
+    @if (Model.ShowRequestId)
+    {
+        <p><strong>İstek Kimliği:</strong> @Model.RequestId</p>
+    }
+</div>

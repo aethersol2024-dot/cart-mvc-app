@@ -1,0 +1,24 @@
+@model List<Product>
+@{
+    ViewData["Title"] = "Ürünler";
+}
+
+<h1>Ürünlerimiz</h1>
+
+<div class="urun-grid">
+    @foreach (var urun in Model)
+    {
+        <div class="urun-kart">
+            <img src="@urun.ImageUrl" alt="@urun.Name" />
+            <h3>@urun.Name</h3>
+            <p class="aciklama">@urun.Description</p>
+            <p class="fiyat">@urun.Price.ToString("C2")</p>
+
+            <form asp-controller="Cart" asp-action="AddToCart" method="post" class="sepet-form">
+                <input type="hidden" name="productId" value="@urun.Id" />
+                <input type="number" name="quantity" value="1" min="1" class="miktar-input" />
+                <button type="submit" class="btn">Sepete Ekle</button>
+            </form>
+        </div>
+    }
+</div>

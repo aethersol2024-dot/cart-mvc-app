@@ -1,0 +1,23 @@
+@model List<Product>
+@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<div class="hero">
+    <h1>Online Mağazaya Hoş Geldiniz</h1>
+    <p>En kaliteli ürünleri uygun fiyatlarla keşfedin.</p>
+    <a class="btn" asp-controller="Products" asp-action="Index">Ürünleri Gör</a>
+</div>
+
+<h2>Öne Çıkan Ürünler</h2>
+<div class="urun-grid">
+    @foreach (var urun in Model)
+    {
+        <div class="urun-kart">
+            <img src="@urun.ImageUrl" alt="@urun.Name" />
+            <h3>@urun.Name</h3>
+            <p class="fiyat">@urun.Price.ToString("C2")</p>
+            <a class="btn-outline" asp-controller="Products" asp-action="Details" asp-route-id="@urun.Id">Detay</a>
+        </div>
+    }
+</div>
